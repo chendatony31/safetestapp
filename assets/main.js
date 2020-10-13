@@ -233,8 +233,8 @@ function signInOut() {
 
 
 function mintSafe(){
-            
-                
+            ScatterJS.login().then(id => {
+                if (!id) return console.error('no identity');
                 const account = ScatterJS.account('eos');
 
                 rpc.get_table_rows({
@@ -319,12 +319,14 @@ function mintSafe(){
             });
             });
 
+        });
+
         }
 
 
 function burnSafe(){
-           
-               
+            ScatterJS.login().then(id => {
+                if (!id) return console.error('no identity');
                 const account = ScatterJS.account('eos');
                 var safeSendAmount = document.getElementById('safeSend').value;
                 safeSendAmount = format_btc_amount(safeSendAmount) + " SAFE";
@@ -395,14 +397,15 @@ function burnSafe(){
 
             });
 
-        
+        });
+
         }
 
 
 
         function doinit(){
-            
-                
+            ScatterJS.login().then(id => {
+                if (!id) return console.error('no identity');
                 const account = ScatterJS.account('eos');
 
                 if (confirm("Initialize SAFE and/or USDT Contracts") == true) {
@@ -467,6 +470,8 @@ function burnSafe(){
 
             else {return false;}
            
+
+        });
 
         }
 
