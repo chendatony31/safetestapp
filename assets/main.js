@@ -4,6 +4,8 @@
 
     ScatterJS.plugins( new ScatterEOS() );
 
+    let api;
+
     const network = ScatterJS.Network.fromJson({
         blockchain: 'eos',
         chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
@@ -12,18 +14,21 @@
         protocol: 'https'
 
     });
+    const rpc = new eosjs_jsonrpc.default(network.fullhost());
 
       ScatterJS.connect('safetoken.app', {network}).then(connected => {
             if (!connected) return console.error('no scatter');
             ScatterJS.login().then(id => {
                 if (!id) return console.error('no identity');
 
+                api = ScatterJS.eos(network, eosjs_api.default, {rpc});
+
             });
 
         });
 
-      const rpc = new eosjs_jsonrpc.default(network.fullhost());
-      const api = ScatterJS.eos(network, eosjs_api.default, {rpc});
+      
+      
 
       document.getElementById('doinit').style.visibility = "hidden";
 
